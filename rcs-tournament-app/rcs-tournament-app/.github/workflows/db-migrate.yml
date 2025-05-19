@@ -1,15 +1,16 @@
-name: CI
+name: Database Migrations
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches: [main]
+    paths:
+      - 'src/lib/db/schema.ts'
+      - 'drizzle.config.ts'
+      - '.github/workflows/db-migrate.yml'
 
 jobs:
-  test:
+  migrate:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -22,41 +23,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run linting
-        run: npm run lint
-
-      - name: Run tests
-        run: npm run test
+      - name: Generate migration
+        run: npm run db:generate
         env:
           DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
-      - name: Run type checking
-        run: npm run check
-
-  e2e:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run E2E tests
-        run: npm run test:e2e
+      - name: Push migration
+        run: npm run db:push
         env:
           DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
