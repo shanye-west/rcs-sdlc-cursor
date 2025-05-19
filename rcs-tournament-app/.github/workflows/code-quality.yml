@@ -2,9 +2,9 @@ name: Code Quality Checks
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   quality:
@@ -37,4 +37,4 @@ jobs:
         run: npm run test:e2e
 
       - name: Build check
-        run: npm run build 
+        run: npm run build

@@ -20,22 +20,21 @@
 	});
 
 	// Navigation items based on user role
-	$: navItems = currentUser?.role === 'admin' 
-		? [
-				{ href: '/admin/tournaments', label: 'Tournaments' },
-				{ href: '/admin/players', label: 'Players' },
-				{ href: '/admin/teams', label: 'Teams' },
-				{ href: '/admin/bets', label: 'Bets' }
-			]
-		: currentUser?.role === 'player'
-		? [
-				{ href: '/tournaments', label: 'Tournaments' },
-				{ href: '/matches', label: 'My Matches' },
-				{ href: '/bets', label: 'Bets' }
-			]
-		: [
-				{ href: '/tournaments', label: 'Tournaments' }
-			];
+	$: navItems =
+		currentUser?.role === 'admin'
+			? [
+					{ href: '/admin/tournaments', label: 'Tournaments' },
+					{ href: '/admin/players', label: 'Players' },
+					{ href: '/admin/teams', label: 'Teams' },
+					{ href: '/admin/bets', label: 'Bets' }
+				]
+			: currentUser?.role === 'player'
+				? [
+						{ href: '/tournaments', label: 'Tournaments' },
+						{ href: '/matches', label: 'My Matches' },
+						{ href: '/bets', label: 'Bets' }
+					]
+				: [{ href: '/tournaments', label: 'Tournaments' }];
 
 	// Toggle mobile menu
 	function toggleMenu() {
@@ -53,11 +52,11 @@
 <div class="min-h-screen bg-gray-100">
 	<!-- Navigation -->
 	<nav class="bg-white shadow-lg">
-		<div class="max-w-7xl mx-auto px-4">
-			<div class="flex justify-between h-16">
+		<div class="mx-auto max-w-7xl px-4">
+			<div class="flex h-16 justify-between">
 				<!-- Logo and main nav -->
 				<div class="flex">
-					<div class="flex-shrink-0 flex items-center">
+					<div class="flex flex-shrink-0 items-center">
 						<a href="/" class="text-xl font-bold text-gray-800">RCS Tournament</a>
 					</div>
 					<!-- Desktop navigation -->
@@ -65,10 +64,10 @@
 						{#each navItems as item}
 							<a
 								href={item.href}
-								class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium
+								class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium
 									{$page.url.pathname.startsWith(item.href)
-										? 'border-indigo-500 text-gray-900'
-										: 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}"
+									? 'border-indigo-500 text-gray-900'
+									: 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}"
 							>
 								{item.label}
 							</a>
@@ -80,10 +79,10 @@
 				<div class="flex items-center">
 					{#if currentUser}
 						<div class="hidden sm:ml-6 sm:flex sm:items-center">
-							<span class="text-gray-500 mr-4">Welcome, {currentUser.username}</span>
+							<span class="mr-4 text-gray-500">Welcome, {currentUser.username}</span>
 							<button
 								on:click={handleLogout}
-								class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+								class="rounded-md bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600"
 							>
 								Logout
 							</button>
@@ -91,7 +90,7 @@
 					{:else}
 						<a
 							href="/login"
-							class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700"
 						>
 							Login
 						</a>
@@ -101,7 +100,7 @@
 					<div class="flex items-center sm:hidden">
 						<button
 							on:click={toggleMenu}
-							class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+							class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:ring-inset"
 						>
 							<span class="sr-only">Open main menu</span>
 							<!-- Menu icon -->
@@ -128,20 +127,20 @@
 		<!-- Mobile menu -->
 		{#if isMenuOpen}
 			<div class="sm:hidden">
-				<div class="pt-2 pb-3 space-y-1">
+				<div class="space-y-1 pt-2 pb-3">
 					{#each navItems as item}
 						<a
 							href={item.href}
-							class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium
+							class="block border-l-4 py-2 pr-4 pl-3 text-base font-medium
 								{$page.url.pathname.startsWith(item.href)
-									? 'bg-indigo-50 border-indigo-500 text-indigo-700'
-									: 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'}"
+								? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+								: 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700'}"
 						>
 							{item.label}
 						</a>
 					{/each}
 					{#if currentUser}
-						<div class="pt-4 pb-3 border-t border-gray-200">
+						<div class="border-t border-gray-200 pt-4 pb-3">
 							<div class="flex items-center px-4">
 								<div class="flex-shrink-0">
 									<span class="text-gray-500">Welcome, {currentUser.username}</span>
@@ -150,7 +149,7 @@
 							<div class="mt-3 space-y-1">
 								<button
 									on:click={handleLogout}
-									class="block w-full text-left px-4 py-2 text-base font-medium text-red-500 hover:text-red-700 hover:bg-gray-50"
+									class="block w-full px-4 py-2 text-left text-base font-medium text-red-500 hover:bg-gray-50 hover:text-red-700"
 								>
 									Logout
 								</button>
@@ -163,7 +162,7 @@
 	</nav>
 
 	<!-- Main content -->
-	<main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+	<main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
 		<slot />
 	</main>
 </div>

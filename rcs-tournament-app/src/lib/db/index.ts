@@ -6,7 +6,7 @@ import * as schema from './schema';
 const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
-  throw new Error('DATABASE_URL environment variable is not set');
+	throw new Error('DATABASE_URL environment variable is not set');
 }
 
 // Create the connection
@@ -32,4 +32,4 @@ export type NewMatch = typeof schema.matches.$inferInsert;
 export type Score = typeof schema.scores.$inferSelect;
 export type NewScore = typeof schema.scores.$inferInsert;
 export type Bet = typeof schema.bets.$inferSelect;
-export type NewBet = typeof schema.bets.$inferInsert; 
+export type NewBet = typeof schema.bets.$inferInsert;
