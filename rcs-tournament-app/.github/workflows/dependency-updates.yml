@@ -22,6 +22,11 @@ jobs:
 
       - name: Check for outdated dependencies
         run: |
+          echo "=== Dependency Update Check ==="
           echo "Checking for outdated dependencies..."
-          npm outdated || true
-          echo "Dependency check complete" 
+          echo "----------------------------------------"
+          npm outdated --long || true
+          echo "----------------------------------------"
+          echo "To update dependencies, run: npm update"
+          echo "For major version updates, review package.json and run: npm install <package>@latest"
+          echo "=== Check Complete ===" 
