@@ -292,7 +292,7 @@ Vercel is a great fit for SvelteKit and requires minimal setup . We will create 
 15
 •  
 Environment Variables: In Vercel’s project settings, we will set the necessary environment variables 
-for the frontend. These include the Supabase project URL and the Supabase anon public key. SvelteKit allows environment variables to be exposed to the client if they are prefixed with, e.g.,  VITE_ (in newer SvelteKit, it’s using $env/static/public ). We will store the Supabase URL and anon key as public env vars since the client needs them to make requests. (The anon key is safe 4 
+for the frontend. These include the Supabase project URL and the Supabase anon public key. SvelteKit allows environment variables to be exposed to the client if they are prefixed with, e.g.,  PUBLIC_ (in newer SvelteKit, it’s using $env/static/public ). We will store the Supabase URL and anon key as public env vars since the client needs them to make requests. (The anon key is safe 4 
 to expose, as it only grants the permissions we define in RLS .) Any other environment secrets (like a Sentry DSN for error reporting or other API keys) would be set as needed but not exposed publicly. Vercel provides an easy UI to add these, and they will be injected at build time.  •  
 Vercel automatically serves the app over HTTPS, which is required for PWA features like service workers and for security. We might use a custom domain for the app (like  
 rcs.yourgolfclub.com ), which we can configure in Vercel’s settings, and Vercel will handle the SSL certificate via Let’s Encrypt.  
